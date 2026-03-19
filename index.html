@@ -400,6 +400,16 @@ const SAMPLE_BEERS = [
     description:'English Bitter di facile bevibilità, omaggio alla tradizione dei pub britannici. Maltatura biscottata e caramellata, luppoli erbacei e terrosi.',
     history:'"Better Call Welly" rimanda alla cultura pub inglese dove il Bitter è la birra per eccellenza. Bassa gradazione, alta bevibilità.',
     tried:false, favorite:false, notes:'' },
+  { name:'8.6 Red', brewery:'Bavaria N.V.', category:'ale', rating:0, abv:7.9, ibu:20,
+    origin:'Veghel, Paesi Bassi', color:'Rosso rubino intenso con riflessi ambrati, testa bianco-rosata fine',
+    description:'Intense Red Beer ad alta gradazione alcolica. Aroma maltato complesso con note di caramello, frutta rossa matura e lieve speziatura. Corpo pieno e rotondo; la dolcezza dei malti caramellati è controbilanciata da un amaro moderato e da un finale pulito. Vincitrice del World Beer Awards Gold.',
+    history:'Il nome "8.6" nasce dalla gradazione originale della birra capostipite. La variante Red estende la gamma verso uno stile Red Ale di carattere, puntando su malti speciali che conferiscono il colore rubino intenso. Realizzata da Bavaria N.V., secondo produttore olandese per volume, viene commercializzata nei mercati internazionali con la dicitura "Imported from Holland".',
+    tried:false, favorite:false, notes:'' },
+  { name:'Kozel Premium', brewery:'Pivovar Velké Popovice', category:'lager', rating:0, abv:4.6, ibu:22,
+    origin:'Velké Popovice, Repubblica Ceca', color:'Dorata brillante con riflessi paglierini, testa bianca compatta e persistente',
+    description:'Světlý ležák (pale lager ceca) di grande tradizione. I malti Moravia conferiscono note di pane fresco e biscotto; il luppolo Saaz aggiunge una speziatura erbacea e floreale tipicamente boema. Corpo medio-leggero, carbonazione vivace e finale secco e pulito che invita al sorso successivo.',
+    history:'Kozel — "capro" in ceco — prende il nome dalla capra simbolo del birrificio di Velké Popovice, fondato nel 1874 a pochi chilometri da Praga. La leggenda vuole che una capra di nome Franciszek abitasse le cantine del birrificio portando fortuna ai mastri birrai. Oggi di proprietà del gruppo Molson Coors, Kozel Premium è una delle lager ceche più esportate al mondo.',
+    tried:false, favorite:false, notes:'' },
 ];
 
 // ═══════════════════════════════════════════════════════════
@@ -428,8 +438,18 @@ function save() {
 function load() {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    if (raw) { state.beers = JSON.parse(raw); }
-    else      { seed(); }
+    if (raw) {
+      state.beers = JSON.parse(raw);
+      // Merge any new SAMPLE_BEERS not yet in localStorage
+      let id = Date.now();
+      const existingKeys = new Set(state.beers.map(b => b.name + '|' + b.brewery));
+      const missing = SAMPLE_BEERS.filter(b => !existingKeys.has(b.name + '|' + b.brewery));
+      if (missing.length > 0) {
+        const newEntries = missing.map(b => ({ ...b, id: id++, dateAdded: id }));
+        state.beers = state.beers.concat(newEntries);
+        save();
+      }
+    } else { seed(); }
   } catch { seed(); }
 }
 function seed() {
@@ -1310,11 +1330,13 @@ navigate('home');
     document.getElementById('pwa-update-toast').classList.add('show');
   }
 
-  document.getElementById('pwa-update-btn')?.addEventListener('click', () => {
-    if (_pendingWorker) {
-      _pendingWorker.postMessage({ type: 'SKIP_WAITING' });
-    }
-    document.getElementById('pwa-update-toast').classList.remove('show');
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('pwa-update-btn')?.addEventListener('click', () => {
+      if (_pendingWorker) {
+        _pendingWorker.postMessage({ type: 'SKIP_WAITING' });
+      }
+      document.getElementById('pwa-update-toast').classList.remove('show');
+    });
   });
 
   // ── Install banner ────────────────────────────────────────────────────────
@@ -1334,19 +1356,21 @@ navigate('home');
     }, 4000);
   });
 
-  document.getElementById('pwa-install-btn')?.addEventListener('click', async () => {
-    if (!_deferredPrompt) return;
-    _deferredPrompt.prompt();
-    const { outcome } = await _deferredPrompt.userChoice;
-    console.log('[PWA] Install outcome:', outcome);
-    _deferredPrompt = null;
-    document.getElementById('pwa-install-banner')?.classList.remove('show');
-    if (outcome === 'accepted') snackbar('🍺 App installata — trovala nella Home!');
-  });
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('pwa-install-btn')?.addEventListener('click', async () => {
+      if (!_deferredPrompt) return;
+      _deferredPrompt.prompt();
+      const { outcome } = await _deferredPrompt.userChoice;
+      console.log('[PWA] Install outcome:', outcome);
+      _deferredPrompt = null;
+      document.getElementById('pwa-install-banner')?.classList.remove('show');
+      if (outcome === 'accepted') snackbar('🍺 App installata — trovala nella Home!');
+    });
 
-  document.getElementById('pwa-install-close')?.addEventListener('click', () => {
-    document.getElementById('pwa-install-banner')?.classList.remove('show');
-    sessionStorage.setItem(INSTALL_DISMISSED_KEY, '1');
+    document.getElementById('pwa-install-close')?.addEventListener('click', () => {
+      document.getElementById('pwa-install-banner')?.classList.remove('show');
+      sessionStorage.setItem(INSTALL_DISMISSED_KEY, '1');
+    });
   });
 
   window.addEventListener('appinstalled', () => {
