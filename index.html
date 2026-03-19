@@ -287,6 +287,27 @@
 <!-- ═══ SNACKBAR ═══ -->
 <div id="snackbar"></div>
 
+<!-- ═══ PWA — Offline bar ═══ -->
+<div id="offline-bar">📡 Sei offline — la cantina è comunque disponibile</div>
+
+<!-- ═══ PWA — Install banner ═══ -->
+<div id="pwa-install-banner">
+  <span class="pwa-icon">🍺</span>
+  <div class="pwa-text">
+    <div class="pwa-title">Aggiungi alla Home</div>
+    <div class="pwa-sub">Accesso rapido, funziona offline</div>
+  </div>
+  <button class="pwa-btn" id="pwa-install-btn">Installa</button>
+  <button class="pwa-close" id="pwa-install-close">✕</button>
+</div>
+
+<!-- ═══ PWA — Update toast ═══ -->
+<div id="pwa-update-toast">
+  <span>🔄</span>
+  <span class="update-text">Nuova versione disponibile!</span>
+  <button class="update-btn" id="pwa-update-btn">Aggiorna</button>
+</div>
+
 <script>
 // ═══════════════════════════════════════════════════════════
 // DATA & CONSTANTS
@@ -1330,13 +1351,11 @@ navigate('home');
     document.getElementById('pwa-update-toast').classList.add('show');
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('pwa-update-btn')?.addEventListener('click', () => {
-      if (_pendingWorker) {
-        _pendingWorker.postMessage({ type: 'SKIP_WAITING' });
-      }
-      document.getElementById('pwa-update-toast').classList.remove('show');
-    });
+  document.getElementById('pwa-update-btn').addEventListener('click', () => {
+    if (_pendingWorker) {
+      _pendingWorker.postMessage({ type: 'SKIP_WAITING' });
+    }
+    document.getElementById('pwa-update-toast').classList.remove('show');
   });
 
   // ── Install banner ────────────────────────────────────────────────────────
@@ -1356,21 +1375,19 @@ navigate('home');
     }, 4000);
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('pwa-install-btn')?.addEventListener('click', async () => {
-      if (!_deferredPrompt) return;
-      _deferredPrompt.prompt();
-      const { outcome } = await _deferredPrompt.userChoice;
-      console.log('[PWA] Install outcome:', outcome);
-      _deferredPrompt = null;
-      document.getElementById('pwa-install-banner')?.classList.remove('show');
-      if (outcome === 'accepted') snackbar('🍺 App installata — trovala nella Home!');
-    });
+  document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+    if (!_deferredPrompt) return;
+    _deferredPrompt.prompt();
+    const { outcome } = await _deferredPrompt.userChoice;
+    console.log('[PWA] Install outcome:', outcome);
+    _deferredPrompt = null;
+    document.getElementById('pwa-install-banner').classList.remove('show');
+    if (outcome === 'accepted') snackbar('🍺 App installata — trovala nella Home!');
+  });
 
-    document.getElementById('pwa-install-close')?.addEventListener('click', () => {
-      document.getElementById('pwa-install-banner')?.classList.remove('show');
-      sessionStorage.setItem(INSTALL_DISMISSED_KEY, '1');
-    });
+  document.getElementById('pwa-install-close').addEventListener('click', () => {
+    document.getElementById('pwa-install-banner').classList.remove('show');
+    sessionStorage.setItem(INSTALL_DISMISSED_KEY, '1');
   });
 
   window.addEventListener('appinstalled', () => {
@@ -1410,27 +1427,6 @@ navigate('home');
 })();
 
 </script>
-
-<!-- ═══ PWA — Offline bar ═══ -->
-<div id="offline-bar">📡 Sei offline — la cantina è comunque disponibile</div>
-
-<!-- ═══ PWA — Install banner ═══ -->
-<div id="pwa-install-banner">
-  <span class="pwa-icon">🍺</span>
-  <div class="pwa-text">
-    <div class="pwa-title">Aggiungi alla Home</div>
-    <div class="pwa-sub">Accesso rapido, funziona offline</div>
-  </div>
-  <button class="pwa-btn" id="pwa-install-btn">Installa</button>
-  <button class="pwa-close" id="pwa-install-close">✕</button>
-</div>
-
-<!-- ═══ PWA — Update toast ═══ -->
-<div id="pwa-update-toast">
-  <span>🔄</span>
-  <span class="update-text">Nuova versione disponibile!</span>
-  <button class="update-btn" id="pwa-update-btn">Aggiorna</button>
-</div>
 
 </body>
 </html>
