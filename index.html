@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8"/>
@@ -23,14 +23,283 @@
 <meta name="description" content="La tua cantina digitale per birre artigianali — traccia, valuta e scopri."/>
 <meta name="keywords" content="birra artigianale, craft beer, cantina, cellar, valutazione"/>
 <meta name="author" content="Progetto personale"/>
-<title>Beer Cellar 🍺</title>
+<title>Beer Cellar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@700;900&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@400;600;700;800&display=swap" rel="stylesheet"/>
 
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- --- SVG ICON SPRITE --- -->
+<svg aria-hidden="true" focusable="false" style="display:none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- -- NAVIGATION -- -->
+  <symbol id="ic-beer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 4 h10 l-2 13 H9 Z"/>
+    <path d="M9 17 L8.5 21 h7 L15 17"/>
+    <path d="M17 7 h3 a2 2 0 0 1 0 5 h-3"/>
+  </symbol>
+
+  <symbol id="ic-stats" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="12" width="4.5" height="9" rx="1"/>
+    <rect x="9.75" y="7" width="4.5" height="14" rx="1"/>
+    <rect x="16.5" y="3" width="4.5" height="18" rx="1"/>
+  </symbol>
+
+  <!-- -- ACTIONS -- -->
+  <symbol id="ic-add" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <path d="M12 5 v14 M5 12 h14"/>
+  </symbol>
+
+  <symbol id="ic-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 13 l5 5 11 -11"/>
+  </symbol>
+
+  <symbol id="ic-back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M20 12 H4 M10 6 l-6 6 6 6"/>
+  </symbol>
+
+  <symbol id="ic-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M16.5 3.5 a2.121 2.121 0 0 1 3 3 L7 19 l-4 1 1 -4 Z"/>
+  </symbol>
+
+  <symbol id="ic-delete" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 6 h18 M8 6 V4 h8 v2 M5 6 l1 14 h12 l1 -14"/>
+    <path d="M10 11 v5 M14 11 v5"/>
+  </symbol>
+
+  <symbol id="ic-save" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3 v13 M7 12 l5 5 5 -5"/>
+    <path d="M4 17 v4 h16 v-4"/>
+  </symbol>
+
+  <symbol id="ic-import" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 6.5 h6 l2 -2 h8 v14 H4 Z"/>
+    <path d="M12 11 v6 M9 14.5 l3 3 3 -3"/>
+  </symbol>
+
+  <symbol id="ic-export" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 17 v4 h16 v-4"/>
+    <path d="M12 3 v13 M7 8 l5 -5 5 5"/>
+  </symbol>
+
+  <symbol id="ic-merge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 4 L12 11 17 4"/>
+    <path d="M12 11 v9"/>
+    <path d="M7 17 L12 20 17 17"/>
+  </symbol>
+
+  <symbol id="ic-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2.5 L2 21.5 h20 Z"/>
+    <path d="M12 9 v5"/>
+    <circle cx="12" cy="17.5" r="0.6" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="ic-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 12 a9 9 0 1 0 3 -6.7 M3 12 V7 h5"/>
+  </symbol>
+
+  <!-- -- UI CONTROLS -- -->
+  <symbol id="ic-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <circle cx="11" cy="11" r="7"/>
+    <path d="M16.5 16.5 l4 4"/>
+  </symbol>
+
+  <symbol id="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+    <path d="M6 6 l12 12 M18 6 l-12 12"/>
+  </symbol>
+
+  <symbol id="ic-sort" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 4 v16 M5 8 l4 -4 4 4"/>
+    <path d="M15 20 V4 M11 16 l4 4 4 -4"/>
+  </symbol>
+
+  <!-- -- SORT OPTIONS -- -->
+  <symbol id="ic-sort-date" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="3"/>
+    <path d="M3 10 h18 M8 2 v4 M16 2 v4"/>
+  </symbol>
+
+  <symbol id="ic-sort-rating" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+  </symbol>
+
+  <symbol id="ic-sort-alpha" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 20 L8 4 L12 20 M5.5 14 h5"/>
+    <path d="M17 4 v16"/>
+    <path d="M14 4 h6 M14 12 h5 M14 20 h6"/>
+  </symbol>
+
+  <symbol id="ic-sort-brewery" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 21 h18 M4 21 V9 l8 -7 8 7 v12"/>
+    <rect x="9" y="13" width="6" height="8" rx="1"/>
+    <path d="M9 10 h6"/>
+  </symbol>
+
+  <!-- -- FAVORITES & STATUS -- -->
+  <symbol id="ic-heart-full" viewBox="0 0 24 24">
+    <path d="M12 21 C10 19 3 14.8 3 9.2 C3 6.1 5.2 4 8 4 C9.8 4 11.2 4.9 12 6.3 C12.8 4.9 14.2 4 16 4 C18.8 4 21 6.1 21 9.2 C21 14.8 14 19 12 21 Z" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="ic-heart-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21 C10 19 3 14.8 3 9.2 C3 6.1 5.2 4 8 4 C9.8 4 11.2 4.9 12 6.3 C12.8 4.9 14.2 4 16 4 C18.8 4 21 6.1 21 9.2 C21 14.8 14 19 12 21 Z"/>
+  </symbol>
+
+  <symbol id="ic-tried" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M8 12.5 l3 3 5 -6"/>
+  </symbol>
+
+  <!-- -- STARS -- -->
+  <symbol id="ic-star-full" viewBox="0 0 24 24">
+    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="currentColor"/>
+  </symbol>
+
+  <symbol id="ic-star-half" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+    <polygon points="12,2 8.91,8.26 2,9.27 7,14.14 5.82,21.02 12,17.77" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <symbol id="ic-star-empty" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
+  </symbol>
+
+  <!-- -- STATS -- -->
+  <symbol id="ic-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 2 h8 v9 a4 4 0 0 1 -8 0 Z"/>
+    <path d="M8 6 H5 a3 3 0 0 0 3 3"/>
+    <path d="M16 6 h3 a3 3 0 0 1 -3 3"/>
+    <path d="M12 15 v4 M9 19 h6"/>
+  </symbol>
+
+  <symbol id="ic-palette" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2 a10 10 0 1 0 2 19.8 a3 3 0 0 1 -2 -2.8 a3 3 0 0 1 3 -3 h1 a3 3 0 0 0 3 -3 a10 10 0 0 0 -7 -11 Z"/>
+    <circle cx="8" cy="10" r="1" fill="currentColor"/>
+    <circle cx="10" cy="6.5" r="1" fill="currentColor"/>
+    <circle cx="13.5" cy="5.5" r="1" fill="currentColor"/>
+    <circle cx="16.5" cy="7.5" r="1" fill="currentColor"/>
+  </symbol>
+
+  <!-- -- BADGE ICONS -- -->
+  <symbol id="ic-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 2 a6 6 0 0 1 6 6 c0 5 -6 14 -6 14 C12 22 6 13 6 8 a6 6 0 0 1 6 -6 Z"/>
+    <circle cx="12" cy="8" r="2"/>
+  </symbol>
+
+  <symbol id="ic-note" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 3 H6 a2 2 0 0 0 -2 2 v14 a2 2 0 0 0 2 2 h12 a2 2 0 0 0 2 -2 V9 Z"/>
+    <path d="M14 3 v6 h6"/>
+    <path d="M8 13 h8 M8 17 h6"/>
+  </symbol>
+
+  <symbol id="ic-hop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="12" cy="9" rx="5" ry="7"/>
+    <path d="M12 16 v6"/>
+    <path d="M9 7 C7 7 6 5 7 3"/>
+    <path d="M15 7 C17 7 18 5 17 3"/>
+  </symbol>
+
+  <symbol id="ic-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4 h14 a2 2 0 0 1 2 2 v13 a2 2 0 0 1 -2 2 H8 a2 2 0 0 1 -2 -2 V6"/>
+    <path d="M4 4 a2 2 0 0 0 -2 2 a2 2 0 0 0 2 2 h2"/>
+    <path d="M8 11 h8 M8 15 h5"/>
+  </symbol>
+
+  <symbol id="ic-offline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M2 8.5 C4.5 5.5 8 4 12 4 C16 4 19.5 5.5 22 8.5"/>
+    <path d="M5 12 C7 10 9.4 9 12 9"/>
+    <path d="M19 12 C18 11 16.5 10.2 15 9.7"/>
+    <path d="M8.5 15.5 C9.5 14.6 10.7 14 12 14"/>
+    <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+    <path d="M3 3 l18 18"/>
+  </symbol>
+
+  <!-- -- CATEGORY ICONS -- -->
+  <symbol id="ic-cat-all" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="8" height="8" rx="2"/>
+    <rect x="13" y="3" width="8" height="8" rx="2"/>
+    <rect x="3" y="13" width="8" height="8" rx="2"/>
+    <rect x="13" y="13" width="8" height="8" rx="2"/>
+  </symbol>
+
+  <symbol id="ic-cat-lager" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 3 h10 l-2 13 H9 Z"/>
+    <path d="M9 16 L8.5 21 h7 L15 16"/>
+    <path d="M17 6.5 h3 a2 2 0 0 1 0 5 h-3"/>
+  </symbol>
+
+  <symbol id="ic-cat-ale" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M5 4 h5 l-1.5 12 H6.5 Z"/>
+    <path d="M6.5 16 L6 21 h5 L10.5 16"/>
+    <path d="M14 4 h5 l-1.5 12 h-2 Z"/>
+    <path d="M15.5 16 L15 21 h5 L19.5 16"/>
+  </symbol>
+
+  <symbol id="ic-cat-ipa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <ellipse cx="12" cy="9" rx="5" ry="7"/>
+    <path d="M12 16 v6"/>
+    <path d="M9 7 C7 7 6 5 7 3"/>
+    <path d="M15 7 C17 7 18 5 17 3"/>
+  </symbol>
+
+  <symbol id="ic-cat-stout" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 4 h10 l-2 14 H9 Z" fill="currentColor" fill-opacity="0.35" stroke="currentColor"/>
+    <path d="M9 18 L8.5 22 h7 L15 18" fill="none"/>
+    <path d="M7 9 h10" fill="none"/>
+  </symbol>
+
+  <symbol id="ic-cat-weizen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 21 V7"/>
+    <path d="M12 16 C12 16 8 13.5 8 10.5 C8 8.5 10 7.5 12 9.5 C14 7.5 16 8.5 16 10.5 C16 13.5 12 16 12 16 Z"/>
+    <path d="M12 12.5 C12 12.5 9 11 9 9"/>
+    <path d="M12 12.5 C12 12.5 15 11 15 9"/>
+    <path d="M9 21 h6"/>
+  </symbol>
+
+  <symbol id="ic-cat-sour" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8"/>
+    <path d="M12 4 v16 M4 12 h16"/>
+    <path d="M12 4 C16 4 18 8 18 12 C18 16 16 20 12 20"/>
+    <path d="M12 4 C8 4 6 8 6 12 C6 16 8 20 12 20"/>
+  </symbol>
+
+  <symbol id="ic-cat-trappist" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 3 v18 M7 9 h10"/>
+    <path d="M8 3 C8 3 5 5.5 5 10.5 C5 15.5 8 18 12 18 C16 18 19 15.5 19 10.5 C19 5.5 16 3 12 3 Z"/>
+  </symbol>
+
+  <symbol id="ic-cat-pilsner" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9.5 3 h5 l-1.5 17 h-2 Z"/>
+    <path d="M11 20 L10.5 22 h3 L13 20"/>
+  </symbol>
+
+  <symbol id="ic-cat-saison" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2 v2 M12 20 v2 M2 12 h2 M20 12 h2"/>
+    <path d="M5.6 5.6 L7 7 M17 17 l1.4 1.4 M18.4 5.6 L17 7 M7 17 l-1.4 1.4"/>
+  </symbol>
+
+  <symbol id="ic-cat-barleywine" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M7 7 h10 v11 a2 2 0 0 1 -2 2 H9 a2 2 0 0 1 -2 -2 Z"/>
+    <path d="M7 12 h10"/>
+    <path d="M9 7 V5 a1 1 0 0 1 1 -1 h4 a1 1 0 0 1 1 1 v2"/>
+  </symbol>
+
+  <symbol id="ic-cat-radler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="8"/>
+    <path d="M12 4 v16 M4 12 h16"/>
+    <path d="M6.3 6.3 l11.4 11.4 M17.7 6.3 L6.3 17.7"/>
+  </symbol>
+
+  <symbol id="ic-cat-other" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="9"/>
+    <path d="M9 9.5 a3 3 0 0 1 6 0 c0 2 -3 3.5 -3 5.5"/>
+    <circle cx="12" cy="18.5" r="0.8" fill="currentColor"/>
+  </symbol>
+
+</svg>
+
 <div id="app">
 
   <!-- ═══ HOME VIEW ═══ -->
@@ -47,28 +316,28 @@
         <div style="position:relative">
           <button class="icon-btn" id="sort-toggle" title="Ordina">⇅</button>
           <div class="sort-dropdown" id="sort-dropdown">
-            <div class="sort-option active" data-sort="date_desc">📅  Data aggiunta</div>
-            <div class="sort-option" data-sort="rating_desc">⭐  Voto</div>
-            <div class="sort-option" data-sort="name_asc">🔤  Nome A–Z</div>
-            <div class="sort-option" data-sort="brewery_asc">🏭  Birrificio</div>
+            <div class="sort-option active" data-sort="date_desc"><svg class="icon"><use href="#ic-sort-date"/></svg> Data aggiunta</div>
+            <div class="sort-option" data-sort="rating_desc"><svg class="icon"><use href="#ic-sort-rating"/></svg> Voto</div>
+            <div class="sort-option" data-sort="name_asc"><svg class="icon"><use href="#ic-sort-alpha"/></svg> Nome A–Z</div>
+            <div class="sort-option" data-sort="brewery_asc"><svg class="icon"><use href="#ic-sort-brewery"/></svg> Birrificio</div>
           </div>
         </div>
       </div>
 
       <div class="search-wrap">
         <div class="search-box">
-          <span class="icon">🔍</span>
+          <span class="search-icon"><svg class="icon"><use href="#ic-search"/></svg></span>
           <input id="search-input" type="search" placeholder="Cerca birra, birrificio, origine…" autocomplete="off"/>
-          <button class="search-clear" id="search-clear">✕</button>
+          <button class="search-clear" id="search-clear"><svg class="icon"><use href="#ic-close"/></svg></button>
         </div>
       </div>
 
       <div class="chip-row" id="category-chips"></div>
 
       <div class="filter-bar" id="filter-bar">
-        <button class="filter-chip active" data-filter="all">🍺 Tutte</button>
-        <button class="filter-chip" data-filter="tried">✅ Provate</button>
-        <button class="filter-chip" data-filter="favorites">❤️ Preferite</button>
+        <button class="filter-chip active" data-filter="all"><svg class="icon"><use href="#ic-cat-all"/></svg> Tutte</button>
+        <button class="filter-chip" data-filter="tried"><svg class="icon"><use href="#ic-tried"/></svg> Provate</button>
+        <button class="filter-chip" data-filter="favorites"><svg class="icon"><use href="#ic-heart-full"/></svg> Preferite</button>
       </div>
     </div><!-- /home-sidebar -->
 
@@ -87,9 +356,9 @@
     <div class="app-bar">
       <button class="icon-btn" id="detail-back">←</button>
       <div style="flex:1"></div>
-      <button class="icon-btn" id="detail-fav" title="Preferita">🤍</button>
-      <button class="icon-btn" id="detail-edit" title="Modifica">✏️</button>
-      <button class="icon-btn danger" id="detail-delete" title="Elimina">🗑</button>
+      <button class="icon-btn" id="detail-fav" title="Preferita"><svg class="icon"><use href="#ic-heart-empty"/></svg></button>
+      <button class="icon-btn" id="detail-edit" title="Modifica"><svg class="icon"><use href="#ic-edit"/></svg></button>
+      <button class="icon-btn danger" id="detail-delete" title="Elimina"><svg class="icon"><use href="#ic-delete"/></svg></button>
     </div>
     <div id="detail-content"></div>
   </div>
@@ -119,7 +388,7 @@
         <div class="field-group">
           <label class="field-label">Categoria</label>
           <div class="cat-selector" id="cat-selector">
-            <span class="cat-selector-emoji" id="cat-sel-emoji">🍺</span>
+            <span class="cat-selector-emoji" id="cat-sel-emoji"><svg class="icon"><use href="#ic-cat-lager"/></svg></span>
             <div class="cat-selector-info">
               <div class="cat-selector-label">Seleziona categoria</div>
               <div class="cat-selector-value" id="cat-sel-name">Lager</div>
@@ -182,12 +451,12 @@
       <div class="form-section-title">Opzioni</div>
       <div class="form-card">
         <div class="toggle-row">
-          <span class="toggle-icon">✅</span>
+          <span class="toggle-icon"><svg class="icon"><use href="#ic-tried"/></svg></span>
           <span class="toggle-label">Già provata</span>
           <label class="toggle"><input type="checkbox" id="f-tried"/><span class="toggle-slider"></span></label>
         </div>
         <div class="toggle-row">
-          <span class="toggle-icon">❤️</span>
+          <span class="toggle-icon"><svg class="icon"><use href="#ic-heart-full"/></svg></span>
           <span class="toggle-label">Preferita</span>
           <label class="toggle"><input type="checkbox" id="f-fav"/><span class="toggle-slider"></span></label>
         </div>
@@ -196,7 +465,7 @@
 
     <div class="form-section" style="padding-bottom:20px">
       <button class="save-btn" id="save-btn" disabled>
-        <span id="save-icon">＋</span>
+        <span id="save-icon"><svg class="icon"><use href="#ic-add"/></svg></span>
         <span id="save-label">Aggiungi birra</span>
       </button>
     </div>
@@ -214,10 +483,10 @@
     <div class="stats-header-bar">
       <span class="stats-header-label">Panoramica</span>
       <button class="export-btn" id="import-btn" title="Importa dati cantina">
-        <span>📂</span> Importa
+        <svg class="icon"><use href="#ic-import"/></svg> Importa
       </button>
       <button class="export-btn" id="export-btn" title="Esporta dati cantina">
-        <span>💾</span> Esporta
+        <svg class="icon"><use href="#ic-export"/></svg> Esporta
       </button>
       <input type="file" id="import-file-input" accept=".json,application/json" style="display:none"/>
     </div>
@@ -230,17 +499,17 @@
   <!-- ── Bottom Nav ── -->
   <nav class="bottom-nav" id="bottom-nav">
     <button class="nav-item active" data-view="home">
-      <span class="nav-icon">🍺</span>
+      <span class="nav-icon"><svg class="icon"><use href="#ic-beer"/></svg></span>
       <span>Cantina</span>
     </button>
     <button class="nav-item" data-view="stats">
-      <span class="nav-icon">📊</span>
+      <span class="nav-icon"><svg class="icon"><use href="#ic-stats"/></svg></span>
       <span>Statistiche</span>
     </button>
   </nav>
 
   <!-- FAB -->
-  <button class="fab" id="fab" title="Aggiungi birra">＋</button>
+  <button class="fab" id="fab" title="Aggiungi birra"><svg class="icon"><use href="#ic-add"/></svg></button>
 </div>
 
 <!-- ═══ CATEGORY SHEET ═══ -->
@@ -255,16 +524,16 @@
 <!-- ═══ IMPORT DIALOG ═══ -->
 <div class="dialog-overlay" id="import-dialog">
   <div class="dialog">
-    <div class="dialog-icon">📂</div>
+    <div class="dialog-icon"><svg class="icon"><use href="#ic-import"/></svg></div>
     <div class="dialog-title">Importa cantina</div>
     <div class="dialog-text" id="import-dialog-text">Come vuoi procedere con i dati importati?</div>
     <div class="dialog-actions" style="flex-direction:column;gap:8px">
       <button class="dialog-btn" id="import-merge"
         style="border-color:rgba(240,120,40,0.35);color:var(--amber)">
-        🔀 Unisci (mantieni esistenti)
+        <svg class="icon"><use href="#ic-merge"/></svg> Unisci (mantieni esistenti)
       </button>
       <button class="dialog-btn danger" id="import-replace">
-        ⚠️ Sostituisci tutto
+        <svg class="icon"><use href="#ic-warning"/></svg> Sostituisci tutto
       </button>
       <button class="dialog-btn" id="import-cancel">Annulla</button>
     </div>
@@ -274,7 +543,7 @@
 <!-- ═══ DELETE DIALOG ═══ -->
 <div class="dialog-overlay" id="delete-dialog">
   <div class="dialog">
-    <div class="dialog-icon">🗑</div>
+    <div class="dialog-icon"><svg class="icon"><use href="#ic-delete"/></svg></div>
     <div class="dialog-title">Elimina birra</div>
     <div class="dialog-text" id="delete-dialog-text">Vuoi davvero eliminarla?</div>
     <div class="dialog-actions">
@@ -288,22 +557,22 @@
 <div id="snackbar"></div>
 
 <!-- ═══ PWA — Offline bar ═══ -->
-<div id="offline-bar">📡 Sei offline — la cantina è comunque disponibile</div>
+<div id="offline-bar"><svg class="icon"><use href="#ic-offline"/></svg> Sei offline — la cantina è comunque disponibile</div>
 
 <!-- ═══ PWA — Install banner ═══ -->
 <div id="pwa-install-banner">
-  <span class="pwa-icon">🍺</span>
+  <span class="pwa-icon"><svg class="icon"><use href="#ic-beer"/></svg></span>
   <div class="pwa-text">
     <div class="pwa-title">Aggiungi alla Home</div>
     <div class="pwa-sub">Accesso rapido, funziona offline</div>
   </div>
   <button class="pwa-btn" id="pwa-install-btn">Installa</button>
-  <button class="pwa-close" id="pwa-install-close">✕</button>
+  <button class="pwa-close" id="pwa-install-close"><svg class="icon"><use href="#ic-close"/></svg></button>
 </div>
 
 <!-- ═══ PWA — Update toast ═══ -->
 <div id="pwa-update-toast">
-  <span>🔄</span>
+  <svg class="icon"><use href="#ic-refresh"/></svg>
   <span class="update-text">Nuova versione disponibile!</span>
   <button class="update-btn" id="pwa-update-btn">Aggiorna</button>
 </div>
@@ -314,18 +583,18 @@
 // ═══════════════════════════════════════════════════════════
 
 const CATEGORIES = [
-  { id:'lager',      name:'Lager',              emoji:'🍺', color:'#D4A017' },
-  { id:'ale',        name:'Ale',                emoji:'🍻', color:'#D4882E' },
-  { id:'ipa',        name:'IPA',                emoji:'🌿', color:'#6B8F3E' },
-  { id:'stout',      name:'Stout & Porter',     emoji:'🖤', color:'#A08060' },
-  { id:'weizen',     name:'Weizen & Blanche',   emoji:'☁️', color:'#C8A84B' },
-  { id:'sour',       name:'Sour & Lambic',      emoji:'🍋', color:'#B5A014' },
-  { id:'trappist',   name:'Trappista & Abbey',  emoji:'⛪', color:'#8B4513' },
-  { id:'pilsner',    name:'Pilsner',             emoji:'🌾', color:'#C8B400' },
-  { id:'saison',     name:'Saison & Farmhouse', emoji:'🌻', color:'#D4A856' },
-  { id:'barleywine', name:'Barleywine',         emoji:'🥃', color:'#8B2020' },
-  { id:'radler',     name:'Radler & Shandy',    emoji:'🍊', color:'#E8952E' },
-  { id:'other',      name:'Altro',              emoji:'🔮', color:'#9E7B5A' },
+  { id:'lager',      name:'Lager',              color:'#D4A017' },
+  { id:'ale',        name:'Ale',                color:'#D4882E' },
+  { id:'ipa',        name:'IPA',                color:'#6B8F3E' },
+  { id:'stout',      name:'Stout & Porter',     color:'#A08060' },
+  { id:'weizen',     name:'Weizen & Blanche',   color:'#C8A84B' },
+  { id:'sour',       name:'Sour & Lambic',      color:'#B5A014' },
+  { id:'trappist',   name:'Trappista & Abbey',  color:'#8B4513' },
+  { id:'pilsner',    name:'Pilsner',             color:'#C8B400' },
+  { id:'saison',     name:'Saison & Farmhouse', color:'#D4A856' },
+  { id:'barleywine', name:'Barleywine',         color:'#8B2020' },
+  { id:'radler',     name:'Radler & Shandy',    color:'#E8952E' },
+  { id:'other',      name:'Altro',              color:'#9E7B5A' },
 ];
 const CAT_MAP = Object.fromEntries(CATEGORIES.map(c => [c.id, c]));
 
@@ -510,7 +779,7 @@ async function exportData() {
       const writable = await handle.createWritable();
       await writable.write(blob);
       await writable.close();
-      snackbar('💾 Dati salvati con successo!');
+      snackbar('Dati salvati con successo!');
       return;
     } catch (e) {
       if (e.name === 'AbortError') return; // utente ha annullato
@@ -525,7 +794,7 @@ async function exportData() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  snackbar('💾 Download avviato — controlla la cartella Download');
+  snackbar('Download avviato — controlla la cartella Download');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -542,7 +811,7 @@ function importData() {
 function handleImportFile(file) {
   if (!file) return;
   if (file.size > 5 * 1024 * 1024) {
-    snackbar('❌ File troppo grande (max 5 MB)');
+    snackbar('File troppo grande (max 5 MB)');
     return;
   }
 
@@ -552,7 +821,7 @@ function handleImportFile(file) {
     try {
       payload = JSON.parse(e.target.result);
     } catch {
-      snackbar('❌ File non valido — JSON malformato');
+      snackbar('File non valido — JSON malformato');
       return;
     }
 
@@ -564,11 +833,11 @@ function handleImportFile(file) {
     } else if (payload && Array.isArray(payload.beers)) {
       // Controlla firma app per avvisare se è un file esterno
       if (payload.app && payload.app !== 'Beer Cellar') {
-        snackbar('⚠️ File da app diversa — tentativo di import comunque');
+        snackbar('File da app diversa — tentativo di import comunque');
       }
       beers = payload.beers;
     } else {
-      snackbar('❌ Formato non riconosciuto — nessun array "beers" trovato');
+      snackbar('Formato non riconosciuto — nessun array "beers" trovato');
       return;
     }
 
@@ -597,7 +866,7 @@ function handleImportFile(file) {
       .map(b => sanitize(b, idCursor++));
 
     if (!valid.length) {
-      snackbar('❌ Nessuna birra valida trovata nel file');
+      snackbar('Nessuna birra valida trovata nel file');
       return;
     }
 
@@ -609,7 +878,7 @@ function handleImportFile(file) {
     dlg.classList.add('open');
   };
 
-  reader.onerror = () => snackbar('❌ Errore nella lettura del file');
+  reader.onerror = () => snackbar('Errore nella lettura del file');
   reader.readAsText(file);
 }
 
@@ -624,7 +893,7 @@ function applyImport(strategy) {
   if (strategy === 'replace') {
     state.beers = incoming;
     save();
-    snackbar(`✅ Cantina sostituita — ${incoming.length} birre caricate`);
+    snackbar(`Cantina sostituita — ${incoming.length} birre caricate`);
   } else {
     // Merge: deduplicazione per ID; le nuove con ID già esistenti ottengono un nuovo ID
     const existingIds = new Set(state.beers.map(b => b.id));
@@ -637,7 +906,7 @@ function applyImport(strategy) {
     });
     state.beers = [...state.beers, ...toAdd];
     save();
-    snackbar(`✅ Merge completato — aggiunte ${toAdd.length} birre`);
+    snackbar(`Merge completato — aggiunte ${toAdd.length} birre`);
   }
 
   navigate('home');
@@ -674,16 +943,24 @@ function navigate(view, opts = {}) {
 // ═══════════════════════════════════════════════════════════
 function getCat(id) { return CAT_MAP[id] || CAT_MAP['other']; }
 function uid() { return Date.now() + Math.floor(Math.random() * 1000); }
+function catIcon(id, cls) {
+  const c = cls ? ` class="${cls}"` : ` class="icon"`;
+  return `<svg${c}><use href="#ic-cat-${id || 'other'}"/></svg>`;
+}
+function svgIcon(id, cls) {
+  const c = cls ? ` class="${cls}"` : ` class="icon"`;
+  return `<svg${c}><use href="#ic-${id}"/></svg>`;
+}
 
 function renderStars(rating, size = 'sm') {
-  const sizes = { sm: '0.82rem', md: '0.95rem', lg: '1.25rem' };
+  const sizeClass = size === 'sm' ? '' : size === 'md' ? ' icon--md' : ' icon--lg';
   let html = `<span class="stars">`;
   for (let i = 1; i <= 5; i++) {
     const full = rating >= i;
     const half = !full && rating >= i - 0.5;
-    const icon = full ? '⭐' : half ? '✨' : '☆';
-    const color = (full || half) ? '#F4C840' : '#5A4A38';
-    html += `<span class="star" style="font-size:${sizes[size]};color:${color}">${icon}</span>`;
+    const iconId = full ? 'star-full' : half ? 'star-half' : 'star-empty';
+    const color  = (full || half) ? 'var(--gold)' : 'rgba(100,70,45,0.6)';
+    html += `<span class="star" style="color:${color}"><svg class="icon${sizeClass}"><use href="#ic-${iconId}"/></svg></span>`;
   }
   return html + '</span>';
 }
@@ -743,10 +1020,10 @@ function renderHome() {
 
 function renderCategoryChips() {
   const el = document.getElementById('category-chips');
-  let html = `<button class="chip ${!state.selectedCategory ? 'active' : ''}" data-cat="" style="${!state.selectedCategory ? '--cat-color:var(--amber)' : ''}">🍺 Tutte</button>`;
+  let html = `<button class="chip ${!state.selectedCategory ? 'active' : ''}" data-cat="" style="${!state.selectedCategory ? '--cat-color:var(--amber)' : ''}">${svgIcon('cat-all')} Tutte</button>`;
   CATEGORIES.forEach(c => {
     const active = state.selectedCategory === c.id;
-    html += `<button class="chip ${active ? 'active' : ''}" data-cat="${c.id}" style="${active ? `--cat-color:${c.color}` : ''}">${c.emoji} ${c.name}</button>`;
+    html += `<button class="chip ${active ? 'active' : ''}" data-cat="${c.id}" style="${active ? `--cat-color:${c.color}` : ''}">${catIcon(c.id)} ${c.name}</button>`;
   });
   el.innerHTML = html;
   el.querySelectorAll('.chip').forEach(ch => {
@@ -773,10 +1050,10 @@ function renderBeerList() {
     const hasFilter = state.searchQuery || state.selectedCategory;
     el.innerHTML = `
       <div class="empty-state">
-        <div class="empty-emoji">🍺</div>
+        <div class="empty-emoji">${svgIcon('beer', 'icon icon--2xl')}</div>
         <h3>${hasFilter ? 'Nessuna birra trovata' : 'La tua cantina è vuota'}</h3>
         <p>${hasFilter ? 'Prova con un termine diverso o rimuovi i filtri.' : 'Inizia aggiungendo la prima birra della tua collezione.'}</p>
-        ${!hasFilter ? `<button class="save-btn" style="margin-top:16px;max-width:260px" onclick="navigate('add')">＋ Aggiungi la prima birra</button>` : ''}
+        ${!hasFilter ? `<button class="save-btn" style="margin-top:16px;max-width:260px" onclick="navigate('add')">${svgIcon('add')} Aggiungi la prima birra</button>` : ''}
       </div>`;
     return;
   }
@@ -784,19 +1061,19 @@ function renderBeerList() {
   el.innerHTML = beers.map((b, i) => {
     const cat = getCat(b.category);
     return `
-    <div class="card beer-card" data-id="${b.id}" style="animation-delay:${i * 28}ms">
+    <div class="card beer-card" data-id="${b.id}" style="animation-delay:${i * 28}ms;--cat-color:${cat.color}">
       <div class="beer-card-stripe" style="--cat-color:${cat.color}"></div>
       <div class="beer-card-body">
-        <div class="beer-emoji-wrap" style="--cat-color:${cat.color}">${cat.emoji}</div>
+        <div class="beer-emoji-wrap" style="--cat-color:${cat.color}">${catIcon(b.category)}</div>
         <div class="beer-meta">
           <div class="beer-name">${esc(b.name)}</div>
           <div class="beer-brewery">${esc(b.brewery || '')}</div>
-          ${b.origin ? `<div class="beer-origin">📍 ${esc(b.origin)}</div>` : ''}
+          ${b.origin ? `<div class="beer-origin">${svgIcon('pin', 'icon icon--sm')} ${esc(b.origin)}</div>` : ''}
         </div>
-        <button class="fav-btn" data-id="${b.id}" onclick="event.stopPropagation();toggleFav(${b.id})">${b.favorite ? '❤️' : '🤍'}</button>
+        <button class="fav-btn${b.favorite ? ' is-fav' : ''}" data-id="${b.id}" onclick="event.stopPropagation();toggleFav(${b.id})">${b.favorite ? svgIcon('heart-full') : svgIcon('heart-empty')}</button>
       </div>
       <div class="beer-card-footer">
-        ${makeBadge(`${cat.emoji} ${cat.name}`, cat.color)}
+        ${makeBadge(`${cat.name}`, cat.color)}
         ${b.abv > 0 ? makeBadge(`${parseFloat(b.abv).toFixed(1)}%`, '#F4C840') : ''}
         <span style="flex:1"></span>
         ${b.rating > 0
@@ -826,19 +1103,26 @@ function renderDetail(id) {
   state.selectedBeer = id;
   const cat = getCat(b.category);
 
-  document.getElementById('detail-fav').textContent = b.favorite ? '❤️' : '🤍';
+  document.getElementById('detail-fav').innerHTML = b.favorite
+    ? svgIcon('heart-full')
+    : svgIcon('heart-empty');
+  if (b.favorite) {
+    document.getElementById('detail-fav').classList.add('is-fav');
+  } else {
+    document.getElementById('detail-fav').classList.remove('is-fav');
+  }
 
   let badges = makeBadge(cat.name, cat.color);
   if (b.abv > 0) badges += makeBadge(`${parseFloat(b.abv).toFixed(1)}% ABV`, '#F4C840');
   if (b.ibu > 0) badges += makeBadge(`${b.ibu} IBU`, '#8ABF40');
-  if (b.origin)  badges += makeBadge(`📍 ${b.origin}`, '#A08060');
+  if (b.origin)  badges += makeBadge(`${svgIcon('pin','icon icon--sm')} ${b.origin}`, '#A08060');
   if (b.color)   badges += makeBadge(b.color, '#8A7A64');
 
   const html = `
     <div class="detail-hero" style="--cat-color:${cat.color}">
       <div class="detail-hero-bg" style="background:linear-gradient(135deg, ${cat.color}20 0%, ${cat.color}08 60%, transparent 100%)"></div>
       <div class="detail-hero-circle" style="--cat-color:${cat.color}"></div>
-      <div class="detail-hero-emoji">${cat.emoji}</div>
+      <div class="detail-hero-emoji">${catIcon(b.category, 'icon')}</div>
       <div class="detail-hero-content">
         <div class="detail-hero-name">${esc(b.name)}</div>
         ${b.brewery ? `<div class="detail-hero-brewery" style="color:${cat.color}">${esc(b.brewery)}</div>` : ''}
@@ -862,7 +1146,7 @@ function renderDetail(id) {
     <div class="detail-section">
       <div class="section-header">
         <div class="section-bar" style="background:var(--amber)"></div>
-        <div class="section-title">📝 Note personali</div>
+        <div class="section-title">${svgIcon('note')} Note personali</div>
       </div>
       <div class="section-card"><p class="section-text">${esc(b.notes)}</p></div>
     </div>` : ''}
@@ -871,7 +1155,7 @@ function renderDetail(id) {
     <div class="detail-section">
       <div class="section-header">
         <div class="section-bar" style="background:var(--amber)"></div>
-        <div class="section-title">🍺 Profilo organolettico</div>
+        <div class="section-title">${svgIcon('hop')} Profilo organolettico</div>
       </div>
       <div class="section-card"><p class="section-text">${esc(b.description)}</p></div>
     </div>` : ''}
@@ -880,7 +1164,7 @@ function renderDetail(id) {
     <div class="detail-section">
       <div class="section-header">
         <div class="section-bar" style="background:${cat.color}"></div>
-        <div class="section-title">📜 Storia e curiosità</div>
+        <div class="section-title">${svgIcon('scroll')} Storia e curiosità</div>
       </div>
       <div class="section-card">
         <div class="history-inner">
@@ -910,7 +1194,7 @@ function renderAdd(editId) {
   const b = editId ? state.beers.find(x => x.id === editId) : null;
 
   document.getElementById('add-title').textContent   = b ? 'Modifica birra' : 'Nuova birra';
-  document.getElementById('save-icon').textContent   = b ? '✓' : '＋';
+  document.getElementById('save-icon').innerHTML     = b ? svgIcon('check') : svgIcon('add');
   document.getElementById('save-label').textContent  = b ? 'Salva modifiche' : 'Aggiungi birra';
 
   document.getElementById('f-name').value     = b?.name        || '';
@@ -939,7 +1223,7 @@ function renderAdd(editId) {
 
 function updateCatSelector() {
   const cat = getCat(state.formCategory);
-  document.getElementById('cat-sel-emoji').textContent = cat.emoji;
+  document.getElementById('cat-sel-emoji').innerHTML = catIcon(cat.id);
   document.getElementById('cat-sel-name').textContent  = cat.name;
   document.getElementById('cat-sel-name').style.color  = cat.color;
 }
@@ -969,9 +1253,9 @@ function buildStarPicker(containerId, currentRating, onChange) {
 
       const full = document.createElement('span');
       full.className = 'star-full';
-      full.textContent = (filled || half) ? '⭐' : '☆';
-      full.style.filter  = (filled || half) ? 'saturate(1)' : 'saturate(0)';
-      full.style.opacity = (filled || half) ? '1' : '0.25';
+      const starId = filled ? 'ic-star-full' : half ? 'ic-star-half' : 'ic-star-empty';
+      full.style.color   = (filled || half) ? 'var(--gold)' : 'rgba(90,60,35,0.5)';
+      full.innerHTML = `<svg class="icon"><use href="#${starId}"/></svg>`;
       full.addEventListener('click', () => { rating = i; onChange(rating); render(); });
 
       const halfBtn = document.createElement('button');
@@ -1006,33 +1290,34 @@ function renderStats() {
 
   document.getElementById('kpi-grid').innerHTML = `
     <div class="kpi-card" style="--kpi-color:var(--amber)">
-      <div class="kpi-icon">🍺</div>
+      <div class="kpi-icon">${svgIcon('beer')}</div>
       <div><div class="kpi-value">${tried.length}</div><div class="kpi-label">Birre provate</div></div>
     </div>
     <div class="kpi-card" style="--kpi-color:#D4524A">
-      <div class="kpi-icon">❤️</div>
+      <div class="kpi-icon">${svgIcon('heart-full')}</div>
       <div><div class="kpi-value">${favs.length}</div><div class="kpi-label">Preferite</div></div>
     </div>
     <div class="kpi-card" style="--kpi-color:var(--gold)">
-      <div class="kpi-icon">⭐</div>
+      <div class="kpi-icon">${svgIcon('star-full')}</div>
       <div><div class="kpi-value">${avgR > 0 ? avgR.toFixed(1) : '—'}</div><div class="kpi-label">Voto medio</div></div>
     </div>
     <div class="kpi-card" style="--kpi-color:var(--hops)">
-      <div class="kpi-icon">🎨</div>
+      <div class="kpi-icon">${svgIcon('palette')}</div>
       <div><div class="kpi-value">${cats}</div><div class="kpi-label">Stili diversi</div></div>
     </div>`;
 
   const topEl = document.getElementById('stats-top');
   const top5  = [...beers].filter(b => b.rating > 0).sort((a,b) => b.rating - a.rating).slice(0,5);
+  const medalColors = ['#D8AA3D','#B0B8C4','#CD7F32'];
   if (top5.length) {
-    const medals = ['🥇','🥈','🥉'];
-    topEl.innerHTML = `<div class="stats-section-title">🏆 Top ${top5.length} birre</div>` +
+    topEl.innerHTML = `<div class="stats-section-title">${svgIcon('trophy')} Top ${top5.length} birre</div>` +
       top5.map((b,i) => {
         const cat = getCat(b.category);
+        const rankStyle = i < 3 ? `color:${medalColors[i]};border:1px solid ${medalColors[i]}40` : '';
         return `
-        <div class="top-item">
-          <div class="top-rank">${medals[i] || String(i+1)}</div>
-          <div class="top-emoji">${cat.emoji}</div>
+        <div class="top-item" style="--cat-color:${cat.color}">
+          <div class="top-rank" style="${rankStyle}">${i+1}</div>
+          <div class="top-emoji">${catIcon(b.category)}</div>
           <div class="top-meta">
             <div class="top-name">${esc(b.name)}</div>
             <div class="top-brewery">${esc(b.brewery||'')}</div>
@@ -1043,9 +1328,9 @@ function renderStats() {
       }).join('');
   } else {
     topEl.innerHTML = `
-      <div class="stats-section-title">🏆 Top birre</div>
+      <div class="stats-section-title">${svgIcon('trophy')} Top birre</div>
       <div class="section-card" style="text-align:center;padding:24px">
-        <div style="font-size:2rem;opacity:0.3">⭐</div>
+        <div style="display:flex;justify-content:center;opacity:0.3;color:var(--gold)">${svgIcon('star-empty','icon icon--xl')}</div>
         <p style="color:var(--muted);font-size:0.86rem;margin-top:8px">Nessuna birra valutata ancora.<br>Apri una scheda e dai le stelle!</p>
       </div>`;
   }
@@ -1058,11 +1343,11 @@ function renderStats() {
   const maxC = Math.max(...bycat.map(x => x.count), 1);
 
   if (bycat.length) {
-    barsEl.innerHTML = `<div class="stats-section-title">📊 Per stile</div>
+    barsEl.innerHTML = `<div class="stats-section-title">${svgIcon('stats')} Per stile</div>
       <div class="section-card">
       ${bycat.map(({cat,count}) => `
-        <div class="bar-row">
-          <span class="bar-emoji">${cat.emoji}</span>
+        <div class="bar-row" style="--cat-color:${cat.color}">
+          <span class="bar-emoji">${catIcon(cat.id)}</span>
           <span class="bar-label">${cat.name}</span>
           <div class="bar-track">
             <div class="bar-fill" style="width:${(count/maxC*100).toFixed(1)}%;background:linear-gradient(90deg,${cat.color},${cat.color}66)"></div>
@@ -1081,10 +1366,12 @@ function toggleFav(id) {
   if (!b) return;
   b.favorite = !b.favorite;
   save();
-  snackbar(b.favorite ? '❤️ Aggiunta ai preferiti' : '💔 Rimossa dai preferiti');
+  snackbar(b.favorite ? 'Aggiunta ai preferiti' : 'Rimossa dai preferiti');
   if (state.currentView === 'home') renderBeerList();
   if (state.currentView === 'detail') {
-    document.getElementById('detail-fav').textContent = b.favorite ? '❤️' : '🤍';
+    const btn = document.getElementById('detail-fav');
+    btn.innerHTML = b.favorite ? svgIcon('heart-full') : svgIcon('heart-empty');
+    btn.classList.toggle('is-fav', b.favorite);
   }
 }
 
@@ -1120,7 +1407,7 @@ function saveBeer() {
     state.beers.unshift(beer);
   }
   save();
-  snackbar(isEdit ? `✏️ "${name}" aggiornata!` : `🍺 "${name}" aggiunta!`);
+  snackbar(isEdit ? `"${name}" aggiornata` : `"${name}" aggiunta alla cantina`);
   navigate(
     isEdit ? 'detail' : 'home',
     isEdit ? { id: beer.id } : {}
@@ -1139,7 +1426,7 @@ function deleteBeer(id) {
     state.beers = state.beers.filter(x => x.id !== id);
     save();
     dlg.classList.remove('open');
-    snackbar(`🗑️ "${b.name}" eliminata`);
+    snackbar(`"${b.name}" eliminata`);
     navigate('home');
   };
   document.getElementById('delete-cancel').onclick = () => dlg.classList.remove('open');
@@ -1273,9 +1560,9 @@ function openCatSheet() {
   list.innerHTML = CATEGORIES.map(c => `
     <div class="sheet-item ${state.formCategory === c.id ? 'active' : ''}" data-cat="${c.id}"
          style="${state.formCategory === c.id ? `--cat-color:${c.color}` : ''}">
-      <span class="sheet-item-emoji">${c.emoji}</span>
+      <span class="sheet-item-emoji" style="${state.formCategory === c.id ? `color:${c.color}` : ''}">${catIcon(c.id)}</span>
       <span class="sheet-item-label" style="${state.formCategory === c.id ? `color:${c.color}` : ''}">${c.name}</span>
-      ${state.formCategory === c.id ? '<span class="sheet-item-check">✓</span>' : ''}
+      ${state.formCategory === c.id ? `<span class="sheet-item-check">${svgIcon('check','icon icon--sm')}</span>` : ''}
     </div>`).join('');
 
   list.querySelectorAll('.sheet-item').forEach(item => {
@@ -1382,7 +1669,7 @@ navigate('home');
     console.log('[PWA] Install outcome:', outcome);
     _deferredPrompt = null;
     document.getElementById('pwa-install-banner').classList.remove('show');
-    if (outcome === 'accepted') snackbar('🍺 App installata — trovala nella Home!');
+    if (outcome === 'accepted') snackbar('App installata — trovala nella Home!');
   });
 
   document.getElementById('pwa-install-close').addEventListener('click', () => {
