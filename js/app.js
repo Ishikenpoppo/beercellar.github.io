@@ -13,7 +13,7 @@ import { initPWA } from './pwa.js';
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════
 
-export function navigate(view, opts = {}) {
+export function navigate(view, opts = {}, { pushHistory = true } = {}) {
   state.prevView = state.currentView;
   state.currentView = view;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -31,6 +31,10 @@ export function navigate(view, opts = {}) {
   if (view === 'stats')  renderStats();
   if (view === 'detail') renderDetail(opts.id);
   if (view === 'add')    renderAdd(opts.id || null);
+
+  if (pushHistory) {
+    history.pushState({ view, opts }, '', null);
+  }
 
   window.scrollTo(0, 0);
   const mainPanel = document.querySelector('.home-main');
@@ -204,5 +208,18 @@ async function loadSprite() {
 await loadSprite();
 load();
 wire();
-navigate('home');
+
+// Initial navigation — replace current history entry instead of pushing
+navigate('home', {}, { pushHistory: false });
+history.replaceState({ view: 'home', opts: {} }, '', null);
+
+// Handle browser/device back button
+window.addEventListener('popstate', e => {
+  if (e.state && e.state.view) {
+    navigate(e.state.view, e.state.opts || {}, { pushHistory: false });
+  } else {
+    navigate('home', {}, { pushHistory: false });
+  }
+});
+
 initPWA();
