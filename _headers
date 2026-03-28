@@ -13,8 +13,22 @@
   Content-Type: application/manifest+json; charset=utf-8
 
 # Icone — cache lunga (cambiano solo con nuova versione)
-/icons/*
+/assets/icons/*
   Cache-Control: public, max-age=604800, immutable
+
+# CSS & JS — cache lunga con immutable (cambiano solo con nuova versione)
+/css/*
+  Cache-Control: public, max-age=604800, immutable
+  Content-Type: text/css; charset=utf-8
+
+/js/*
+  Cache-Control: public, max-age=604800, immutable
+  Content-Type: application/javascript; charset=utf-8
+
+# SVG sprite
+/assets/sprite.svg
+  Cache-Control: public, max-age=604800, immutable
+  Content-Type: image/svg+xml
 
 # App shell — stale-while-revalidate per risposta rapida + aggiornamento background
 /index.html

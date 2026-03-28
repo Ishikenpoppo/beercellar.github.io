@@ -1,0 +1,146 @@
+@media (max-width: 680px) { .fab { right: 18px; } }
+
+/* ═══════════════════════════════════════════════════════════
+   LARGE SCREEN LAYOUT (≥ 960 px)
+   On mobile the two wrapper divs are "invisible" to layout
+   (display:contents), so children stack as before.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Default: wrappers are transparent on mobile */
+.home-sidebar,
+.home-main { display: contents; }
+
+@media (min-width: 960px) {
+
+  /* ── Widen the root shell ── */
+  #app {
+    max-width: 1200px;
+  }
+
+  /* Bottom nav and FAB follow the wider container */
+  .bottom-nav { max-width: 1200px; }
+  .fab        { right: calc(50% - 600px + 18px); }
+
+  /* ── Home view: side-panel layout ── */
+  #view-home {
+    flex-direction: row;
+    height: calc(100dvh - 60px);   /* 60px ≈ bottom nav height */
+    overflow: hidden;
+  }
+
+  /* LEFT SIDEBAR */
+  .home-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    scrollbar-width: none;
+    border-right: 1px solid var(--border-subtle);
+    background: linear-gradient(to right, var(--bg-2) 80%, transparent);
+  }
+  .home-sidebar::-webkit-scrollbar { display: none; }
+
+  /* App-bar inside sidebar: stays sticky (works within overflow-y:auto), gets a bottom border */
+  .home-sidebar .app-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .home-sidebar .search-wrap {
+    padding: 14px 16px 8px;
+  }
+
+  /* Chips stack vertically, wrap naturally */
+  .home-sidebar .chip-row {
+    flex-direction: column;
+    overflow-x: unset;
+    overflow-y: visible;
+    padding: 4px 16px 8px;
+    gap: 5px;
+  }
+  .home-sidebar .chip-row .chip {
+    justify-content: flex-start;
+  }
+
+  /* Filter chips stack vertically too */
+  .home-sidebar .filter-bar {
+    flex-direction: column;
+    overflow-x: unset;
+    padding: 8px 16px 20px;
+    gap: 6px;
+    border-top: 1px solid var(--border-subtle);
+    margin-top: 4px;
+  }
+  .home-sidebar .filter-bar .filter-chip {
+    text-align: left;
+  }
+
+  /* RIGHT MAIN PANEL */
+  .home-main {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 0;
+  }
+
+  /* Two-column card grid */
+  .home-main .beer-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 4px 24px 24px;
+    align-content: start;
+  }
+
+  /* Empty state must span both columns */
+  .home-main .beer-list .empty-state {
+    grid-column: 1 / -1;
+  }
+
+  .home-main .list-toolbar {
+    padding: 8px 24px 8px;
+  }
+
+  /* ── Non-home views: constrain width so they don't stretch too wide ── */
+  #view-detail {
+    max-width: 740px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  #view-add {
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Stats: 4 KPI columns on large screens, top-5 & bars side by side */
+  #view-stats.active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto 1fr;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+    padding-bottom: 100px;
+  }
+
+  #view-stats > .app-bar,
+  #view-stats > .stats-header-bar,
+  #view-stats > .kpi-grid {
+    grid-column: 1 / -1;
+  }
+
+  .kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  #stats-top  { grid-column: 1; }
+  #stats-bars { grid-column: 2; }
+}

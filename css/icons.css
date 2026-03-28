@@ -1,0 +1,12 @@
+/* ── SVG Icon System ── */
+.icon {
+  width: 1.1em; height: 1.1em;
+  display: inline-block; vertical-align: -0.15em;
+  flex-shrink: 0; pointer-events: none;
+  fill: currentColor;
+}
+.icon--sm  { width: 0.82em;  height: 0.82em; }
+.icon--md  { width: 1.25em;  height: 1.25em; }
+.icon--lg  { width: 1.5em;   height: 1.5em;  }
+.icon--xl  { width: 2.2em;   height: 2.2em;  }
+.icon--2xl { width: 3.2em;   height: 3.2em;  }

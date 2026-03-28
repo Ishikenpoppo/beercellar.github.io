@@ -12,49 +12,49 @@
   "categories": ["food", "lifestyle", "utilities"],
   "icons": [
     {
-      "src": "icons/icon-72.png",
+      "src": "assets/icons/icon-72.png",
       "sizes": "72x72",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-96.png",
+      "src": "assets/icons/icon-96.png",
       "sizes": "96x96",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-128.png",
+      "src": "assets/icons/icon-128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-192.png",
+      "src": "assets/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "assets/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "icons/icon-maskable-192.png",
+      "src": "assets/icons/icon-maskable-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icons/icon-maskable-512.png",
+      "src": "assets/icons/icon-maskable-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "icons/icon.svg",
+      "src": "assets/icons/icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
@@ -66,14 +66,14 @@
       "short_name": "Aggiungi",
       "description": "Aggiungi una nuova birra alla cantina",
       "url": "./index.html?action=add&utm_source=pwa_shortcut",
-      "icons": [{ "src": "icons/shortcut-add.png", "sizes": "96x96" }]
+      "icons": [{ "src": "assets/icons/shortcut-add.png", "sizes": "96x96" }]
     },
     {
       "name": "Statistiche",
       "short_name": "Stats",
       "description": "Visualizza le statistiche della tua cantina",
       "url": "./index.html?action=stats&utm_source=pwa_shortcut",
-      "icons": [{ "src": "icons/shortcut-stats.png", "sizes": "96x96" }]
+      "icons": [{ "src": "assets/icons/shortcut-stats.png", "sizes": "96x96" }]
     }
   ],
   "screenshots": [],
