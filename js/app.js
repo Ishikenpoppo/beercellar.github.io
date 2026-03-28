@@ -13,7 +13,7 @@ import { initPWA } from './pwa.js';
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════
 
-export function navigate(view, opts = {}, { pushHistory = true } = {}) {
+export function navigate(view, opts = {}, { replace = false } = {}) {
   state.prevView = state.currentView;
   state.currentView = view;
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -32,8 +32,10 @@ export function navigate(view, opts = {}, { pushHistory = true } = {}) {
   if (view === 'detail') renderDetail(opts.id);
   if (view === 'add')    renderAdd(opts.id || null);
 
-  if (pushHistory) {
-    history.pushState({ view, opts }, '', null);
+  if (replace) {
+    history.replaceState({ view, opts }, '');
+  } else {
+    history.pushState({ view, opts }, '');
   }
 
   window.scrollTo(0, 0);
@@ -54,7 +56,7 @@ function wire() {
   document.getElementById('fab').addEventListener('click', () => navigate('add'));
 
   // Detail actions
-  document.getElementById('detail-back').addEventListener('click', () => navigate('home'));
+  document.getElementById('detail-back').addEventListener('click', () => history.back());
   document.getElementById('detail-fav').addEventListener('click', () => {
     if (state.selectedBeer) toggleFav(state.selectedBeer);
   });
@@ -66,13 +68,7 @@ function wire() {
   });
 
   // Add/edit back
-  document.getElementById('add-back').addEventListener('click', () => {
-    if (state.editingId) {
-      navigate('detail', { id: state.editingId });
-    } else {
-      navigate('home');
-    }
-  });
+  document.getElementById('add-back').addEventListener('click', () => history.back());
 
   // Form validation
   document.getElementById('f-name').addEventListener('input', validateForm);
@@ -205,21 +201,42 @@ async function loadSprite() {
 // INIT
 // ═══════════════════════════════════════════════════════════
 
-await loadSprite();
-load();
-wire();
-
-// Initial navigation — replace current history entry instead of pushing
-navigate('home', {}, { pushHistory: false });
-history.replaceState({ view: 'home', opts: {} }, '', null);
-
 // Handle browser/device back button
 window.addEventListener('popstate', e => {
-  if (e.state && e.state.view) {
-    navigate(e.state.view, e.state.opts || {}, { pushHistory: false });
+  const s = e.state;
+  if (s && s.view) {
+    _renderView(s.view, s.opts || {});
   } else {
-    navigate('home', {}, { pushHistory: false });
+    _renderView('home', {});
   }
 });
 
+function _renderView(view, opts) {
+  state.prevView = state.currentView;
+  state.currentView = view;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+
+  const showNav = view === 'home' || view === 'stats';
+  document.getElementById('bottom-nav').style.display = showNav ? 'flex' : 'none';
+  document.getElementById('fab').style.display = (view === 'home') ? 'flex' : 'none';
+
+  document.querySelectorAll('.nav-item').forEach(n => {
+    n.classList.toggle('active', n.dataset.view === view);
+  });
+
+  if (view === 'home')   renderHome();
+  if (view === 'stats')  renderStats();
+  if (view === 'detail') renderDetail(opts.id);
+  if (view === 'add')    renderAdd(opts.id || null);
+
+  window.scrollTo(0, 0);
+  const mainPanel = document.querySelector('.home-main');
+  if (mainPanel) mainPanel.scrollTop = 0;
+}
+
+await loadSprite();
+load();
+wire();
+navigate('home', {}, { replace: true });
 initPWA();

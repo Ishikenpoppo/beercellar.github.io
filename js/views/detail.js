@@ -8,7 +8,7 @@ import { navigate } from '../app.js';
 
 export function renderDetail(id) {
   const b = state.beers.find(x => x.id === id);
-  if (!b) { navigate('home'); return; }
+  if (!b) { navigate('home', {}, { replace: true }); return; }
   state.selectedBeer = id;
   const cat = getCat(b.category);
 

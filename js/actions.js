@@ -54,10 +54,11 @@ export function saveBeer() {
   }
   save();
   snackbar(isEdit ? `"${name}" aggiornata` : `"${name}" aggiunta alla cantina`);
-  navigate(
-    isEdit ? 'detail' : 'home',
-    isEdit ? { id: beer.id } : {}
-  );
+  if (isEdit) {
+    history.back();
+  } else {
+    navigate('home');
+  }
 }
 
 export function deleteBeer(id) {
@@ -73,7 +74,7 @@ export function deleteBeer(id) {
     save();
     dlg.classList.remove('open');
     snackbar(`"${b.name}" eliminata`);
-    navigate('home');
+    history.back();
   };
   document.getElementById('delete-cancel').onclick = () => dlg.classList.remove('open');
 }
