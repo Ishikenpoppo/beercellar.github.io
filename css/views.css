@@ -31,13 +31,17 @@
   letter-spacing: 0.05em; flex: 1;
 }
 .sort-btn {
-  display: flex; align-items: center; gap: 5px;
+  display: flex; align-items: center; gap: 6px;
   background: var(--surface); border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full); padding: 6px 13px;
+  border-radius: var(--radius-full); padding: 8px 14px;
   color: var(--muted);
-  font-family: var(--font-sub); font-size: 0.69rem; font-weight: 700;
+  font-family: var(--font-sub); font-size: 0.72rem; font-weight: 700;
   cursor: pointer; transition: var(--transition);
+  min-height: 40px;
+  -webkit-user-select: none;
+  user-select: none;
 }
+.sort-btn:active { opacity: 0.8; }
 .sort-btn:hover { border-color: var(--border-hover); color: var(--amber); background: rgba(52,32,24,0.5); }
 
 /* ═══════════════════════════════════════════════════════════

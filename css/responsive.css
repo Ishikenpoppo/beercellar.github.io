@@ -1,4 +1,83 @@
-@media (max-width: 680px) { .fab { right: 18px; } }
+/* ═══════════════════════════════════════════════════════════
+   MOBILE-FIRST: SMALL SCREEN OPTIMIZATIONS (< 680px)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Ensure touch targets are at least 44x44px (mobile best practice) */
+.icon-btn,
+.nav-item,
+.fab,
+.filter-chip,
+.sort-btn,
+button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Improve touch target for filter chips */
+@media (max-width: 680px) {
+  .filter-chip {
+    min-height: 40px;
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+
+  .fab { 
+    right: 18px;
+    width: 56px;
+    height: 56px;
+  }
+
+  /* Better safe area handling for notched phones */
+  .bottom-nav {
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+
+  /* Safe area padding for content near edges */
+  .app-bar {
+    padding-left: max(20px, calc(20px + env(safe-area-inset-left)));
+    padding-right: max(20px, calc(20px + env(safe-area-inset-right)));
+  }
+
+  /* Better spacing for mobile forms */
+  .field-input,
+  .field-textarea,
+  .field-select {
+    min-height: 48px;
+    font-size: 16px; /* Prevents auto-zoom on iOS */
+    padding: 14px 16px;
+  }
+
+  /* Improve touch-friendly search */
+  .search-box {
+    min-height: 46px;
+    padding: 12px 18px;
+  }
+
+  /* Better button sizing on mobile */
+  .btn,
+  [role="button"] {
+    min-height: 44px;
+    padding: 12px 18px;
+  }
+
+  /* Improve card grid padding for mobile */
+  .beer-list {
+    padding: 6px 16px 110px;
+    gap: 14px;
+  }
+
+  /* Better section spacing */
+  .form-section {
+    padding: 10px 16px;
+  }
+
+  /* Prevent layout shifts from keyboard on iOS */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════
    LARGE SCREEN LAYOUT (≥ 960 px)

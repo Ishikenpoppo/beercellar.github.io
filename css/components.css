@@ -39,7 +39,14 @@
   display: flex; align-items: center; justify-content: center;
   transition: var(--transition);
   flex-shrink: 0; font-size: 1rem;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 8px;
+  min-width: 44px;
+  min-height: 44px;
 }
+.icon-btn:active { transform: scale(0.95); }
 .icon-btn:hover {
   background: rgba(66,42,30,0.8);
   border-color: var(--border-hover);
@@ -73,7 +80,13 @@
   font-size: 0.68rem; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
   transition: var(--transition-slow); position: relative;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  min-height: 60px;
+  justify-content: center;
 }
+.nav-item:active { opacity: 0.7; }
 .nav-item .nav-icon { font-size: 0; line-height: 1; transition: var(--spring-tight); width: 1.6rem; height: 1.6rem; display: flex; align-items: center; justify-content: center; }
 .nav-item .nav-icon .icon { width: 1.5rem; height: 1.5rem; }
 .nav-item.active { color: var(--amber); }
@@ -97,9 +110,21 @@
   box-shadow: var(--shadow-amber);
   transition: var(--spring);
   z-index: 150;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 0;
+  min-width: 56px;
+  min-height: 56px;
 }
-.fab:hover { transform: scale(1.12) rotate(90deg); box-shadow: 0 10px 40px rgba(240,120,40,0.4); }
-.fab:active { transform: scale(0.96); }
+.fab:active { 
+  transform: scale(0.88);
+  box-shadow: 0 4px 20px rgba(240,120,40,0.3);
+}
+.fab:hover { 
+  transform: scale(1.12) rotate(90deg); 
+  box-shadow: 0 10px 40px rgba(240,120,40,0.4);
+}
 
 /* ═══════════════════════════════════════════════════════════
    CARDS
@@ -176,10 +201,13 @@
 
 .fav-btn {
   background: none; border: none; cursor: pointer; font-size: 0;
-  line-height: 1; padding: 2px; transition: var(--spring); flex-shrink: 0;
-  width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  line-height: 1; padding: 6px; transition: var(--spring); flex-shrink: 0;
+  width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
   border-radius: var(--radius-full); color: var(--muted);
+  -webkit-user-select: none;
+  user-select: none;
 }
+.fav-btn:active { transform: scale(0.85); }
 .fav-btn:hover { background: rgba(212,82,74,0.16); transform: scale(1.35); color: var(--ruby); }
 .fav-btn.is-fav { color: var(--ruby); }
 .fav-btn .icon { width: 1.15rem; height: 1.15rem; }
