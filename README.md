@@ -16,7 +16,7 @@
  
 <br/>
  
-![App Screenshot](https://i.postimg.cc/65G1yJfN/Immagine-2026-04-23-213642.png)
+[Immagine-2026-04-23-213642.png](https://postimg.cc/Tpfc4ssk)
 
 </div>
  
