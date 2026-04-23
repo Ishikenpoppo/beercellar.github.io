@@ -16,9 +16,8 @@
  
 <br/>
  
-[![Immagine-2026-03-16-213139.png][https://i.postimg.cc/65G1yJfN/Immagine-2026-04-23-213642.png]
-<!-- Sostituisci con uno screenshot reale dell'app -->
- 
+![App Screenshot](https://i.postimg.cc/65G1yJfN/Immagine-2026-04-23-213642.png)
+
 </div>
  
 ---
