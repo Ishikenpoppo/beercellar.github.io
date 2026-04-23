@@ -93,12 +93,12 @@ button {
 
   /* ── Widen the root shell ── */
   #app {
-    max-width: 1200px;
+    max-width: 100%;
   }
 
   /* Bottom nav and FAB follow the wider container */
-  .bottom-nav { max-width: 1200px; }
-  .fab        { right: calc(50% - 600px + 18px); }
+  .bottom-nav { max-width: 100%; }
+  .fab        { right: 18px; }
 
   /* ── Home view: side-panel layout ── */
   #view-home {
@@ -186,25 +186,25 @@ button {
     padding: 8px 24px 8px;
   }
 
-  /* ── Non-home views: constrain width so they don't stretch too wide ── */
+  /* ── Non-home views: remove width constraints ── */
   #view-detail {
-    max-width: 740px;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
   }
 
   #view-add {
-    max-width: 680px;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
   }
 
-  /* Stats: 4 KPI columns on large screens, top-5 & bars side by side */
+  /* Stats: full width grid on large screens */
   #view-stats.active {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto auto 1fr;
-    max-width: 960px;
+    max-width: 100%;
     margin: 0 auto;
     width: 100%;
     padding-bottom: 100px;
