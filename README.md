@@ -62,31 +62,75 @@
 ---
  
 ## 🏗 Architettura
- 
+
 ```
 beer-cellar/
 ├── index.html              # App shell completa (single-file SPA)
-├── style.css               # style CSS style
 ├── manifest.json           # Web App Manifest
 ├── sw.js                   # Service Worker
+├── version.json            # Version tracking (YYYY-MM-DDTHHMMSS)
+├── deploy.ps1              # PowerShell deploy script
 ├── _headers                # Cloudflare Pages — header HTTP
-└── icons/
-    ├── icon.svg            # Icona vettoriale universale
-    ├── icon-72/96/128/192/512.png
-    ├── icon-maskable-192/512.png
-    ├── shortcut-add.png
-    └── shortcut-stats.png
+├── css/                    # CSS modulare
+│   ├── main.css            # Entry point
+│   ├── reset.css            # CSS reset
+│   ├── tokens.css          # Design tokens (colori, spacing)
+│   ├── typography.css      # Font e scale tipografiche
+│   ├── components.css      # UI components
+│   ├── forms.css           # Form styling
+│   ├── views.css           # View-specific styles
+│   ├── overlays.css       # Dialog, sheet, snackbar
+│   ├── responsive.css      # Media queries
+│   ├── icons.css           # Icone inline SVG
+│   └── pwa.css             # PWA-specific
+├── js/                     # JavaScript modulare
+│   ├── app.js              # Entry point
+│   ├── data.js            # Dati precaricati (50&50)
+│   ├── state.js           # State management
+│   ├── helpers.js         # Utility functions
+│   ├── filters.js         # Ricerca e filtri
+│   ├── actions.js         # Azioni utente
+│   ├── import-export.js   # Import/Export JSON
+│   ├── pwa.js             # PWA logic
+│   └── views/              # View modules
+│       ├── home.js
+│       ├── detail.js
+│       ├── add-edit.js
+│       └── stats.js
+├── assets/icons/           # Risorse statiche
+│   ├── icon.svg
+│   ├── icon-72.png ... icon-512.png
+│   ├── icon-maskable-192/512.png
+│   ├── shortcut-add.png
+│   └── shortcut-stats.png
+└── .vscode/launch.json   # VS Code debug config
 ```
  
 ### Stack tecnico
- 
+
 | Layer | Scelta | Motivazione |
 |---|---|---|
 | Frontend | Vanilla JS + HTML/CSS | Zero dipendenze, carico istantaneo |
 | Persistenza | `localStorage` | Nessun backend, privacy totale |
 | Font | Bebas Neue + Barlow (Google Fonts) | Identità visiva taproom industrial |
 | Deploy | Cloudflare Pages | Edge CDN globale, HTTPS automatico |
-| Icone | Pillow (generazione) + SVG | Controllate al pixel, brand-consistent |
+| Icone | Pillow (generazione PNG) + SVG | Controllate al pixel, brand-consistent |
+| Debug | VS Code (launch.json) | Debug browser integrato |
+
+### Dati sorgente
+
+| File | Descrizione |
+|---|---|
+| `scrape_5050.py` | Python scraper per il catalogo 50&50 Craft Brewery |
+| `beers_5050.json` | Dati JSON precaricati delle birre 50&50 |
+| `version.json` | Versione corrente (`YYYY-MM-DDTHHMMSS`) |
+
+### Mobile optimization docs
+
+| File | Descrizione |
+|---|---|
+| `MOBILE_QUICK_REFERENCE.md` | Guida rapida ottimizzazioni mobile |
+| `MOBILE_OPTIMIZATION_GUIDE.md` | Guida completa responsive design |
  
 ### Strategie di caching (Service Worker)
  
@@ -104,39 +148,53 @@ Risorse esterne               →  Network-First
 ```
  
 ---
- 
-## 🚀 Deploy su GitHub Pages
- 
-### 1. Crea il repository
- 
+
+## 🚀 Deploy su Cloudflare Pages
+
+### 1. Script automatizzato
+
+```powershell
+# PowerShell (consigliato)
+.\deploy.ps1
+```
+
+### 2. Manuale
+
 ```bash
 # Clona il repository
 git clone https://github.com/tuo-username/beer-cellar.git
 cd beer-cellar
- 
+
 # Assicurati che tutti i file siano nella root
-# index.html, manifest.json, sw.js, _headers, icons/
 git add .
 git commit -m "feat: initial PWA setup"
 git push origin main
 ```
- 
-### 2. Abilita GitHub Pages
- 
-1. Vai su **Settings** → **Pages** nel tuo repository
-2. Sotto *Source* seleziona **Deploy from a branch**
-3. Branch: **`main`** — Folder: **`/ (root)`**
-4. Clicca **Save**
- 
+
+### 3. Abilita Cloudflare Pages
+
+1. Vai su **Pages** nella dashboard Cloudflare
+2. Collega il repository GitHub
+3. Imposta **Production branch**: `main`
+4. **Build settings**: None (static)
+5. **Output directory**: `/` (root)
+
 Dopo qualche minuto l'app sarà disponibile su:
 ```
-https://tuo-username.github.io/beer-cellar/
+https://tuodominio.pages.dev
 ```
- 
-### 3. Aggiorna i path nel manifest
- 
-GitHub Pages serve l'app in una sottodirectory (`/beer-cellar/`), quindi aggiorna `manifest.json` di conseguenza:
- 
+
+### 4. Header HTTP
+
+Il file `_headers` viene applicato automaticamente:
+- Security headers (HSTS, X-Frame-Options)
+- Cache headers per Service Worker
+- CORS per font esterni
+
+### 5. Aggiorna i path nel manifest (se necessario)
+
+Se serve da sottodirectory (`/beer-cellar/`), aggiorna `manifest.json`:
+
 ```json
 {
   "start_url": "/beer-cellar/index.html?utm_source=pwa",
@@ -147,10 +205,10 @@ GitHub Pages serve l'app in una sottodirectory (`/beer-cellar/`), quindi aggiorn
   ]
 }
 ```
- 
-> 💡 Se usi un dominio custom (Settings → Pages → Custom domain) puoi lasciare i path relativi `./` senza modifiche.
- 
-### 4. Installa la PWA
+
+> 💡 Se usi un dominio custom puoi lasciare i path relativi `./` senza modifiche.
+
+### 6. Installa la PWA
  
 | Piattaforma | Procedura |
 |---|---|
