@@ -16,7 +16,7 @@
  
 <br/>
  
-[![Immagine-2026-03-16-213139.png](https://i.postimg.cc/P594Wfb4/Immagine-2026-03-16-213139.png)](https://postimg.cc/Mn0VxSFM)
+[![Immagine-2026-03-16-213139.png][ttps://i.postimg.cc/P594Wfb4/Immagine-2026-03-16-213139.png)](https://postimg.cc/Mn0VxSFM](https://i.postimg.cc/65G1yJfN/Immagine-2026-04-23-213642.png)
 <!-- Sostituisci con uno screenshot reale dell'app -->
  
 </div>
